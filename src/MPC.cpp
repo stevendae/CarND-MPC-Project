@@ -92,6 +92,12 @@ class FG_eval {
       // Only consider the actuation at time t.
       AD<double> delta0 = vars[delta_start + t];
       AD<double> a0 = vars[a_start + t];
+     
+      // Adjusting for latency after first time step
+      if (t > 1) {
+       a = vars[a_start + t - 2];
+       delta = vars[delta_start + t -2];
+      }
 
       AD<double> f0 = coeffs[0] + coeffs[1] * x0 + coeffs[2] * x0 * x0 + coeffs[3] * x0 * x0 * x0;
       AD<double> psides0 = CppAD::atan(3*coeffs[3]* x0 * x0 + 2*coeffs[2]* x0 + coeffs[1]);
