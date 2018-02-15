@@ -50,8 +50,8 @@ class FG_eval {
     fg[0] = 0;
 
     for (int t = 0; t < N; t++) {
-      fg[0] += 7000*CppAD::pow(vars[cte_start + t] - ref_cte, 2);
-      fg[0] += 7000*CppAD::pow(vars[epsi_start + t] - ref_epsi, 2);
+      fg[0] += 10000*CppAD::pow(vars[cte_start + t] - ref_cte, 2);
+      fg[0] += 10000*CppAD::pow(vars[epsi_start + t] - ref_epsi, 2);
       fg[0] += 10*CppAD::pow(vars[v_start + t] - ref_v,2);
     }
 
