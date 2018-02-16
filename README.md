@@ -35,6 +35,8 @@ The final timestep length was 0.1 seconds with an elapsed duration of 10 timeste
 ---
 The general MPC preprocessing steps are described above in the model section. In the image below a view of the projected polynomial fitted to the waypoints is shown.
 
+![Screenshot](Screen.jpg)
+
 ### Model Predictive Control with Latency
 ---
 The whole purpose of applying actuation to a system is to influence the the system's future states, specifically the next possible future state whereby an acutation can be applied again to its following state. However the latency inherent in the system causes a delay of the actuation effect of 100 milliseconds which is the same length as a time step. Therefore in the update equations on line 97 of MPC.cpp the actuation values for time steps after the second time step is reset to two time steps before so that the other state values can be calculated based on the effect of the actual corresponding actuation input. 
