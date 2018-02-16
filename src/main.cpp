@@ -109,7 +109,7 @@ int main() {
           std::cout << "The px is: " << px << std::endl;
           std::cout << "The py is: " << py << std::endl;
           std::cout << "The psi is: " << psi << std::endl;
-          std::cout << "The v is: " << v_conv << std::endl;
+          std::cout << "The v is: " << v << std::endl;
 
 
           /*
