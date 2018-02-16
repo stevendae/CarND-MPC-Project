@@ -141,7 +141,7 @@ int main() {
           double epsi = -atan(coeffs[1]);
 
           double steer_value_ = j[1]["steering_angle"];
-          steer_value_ *= deg2rad(25)
+          steer_value_ *= deg2rad(25);
           double throttle_value_ = j[1]["throttle"];
 
           Eigen::VectorXd state(6);
