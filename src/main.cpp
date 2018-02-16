@@ -91,6 +91,24 @@ int main() {
           double py = j[1]["y"];
           double psi = j[1]["psi"];
           double v = j[1]["speed"];
+          
+          std::cout << "The ptsx is: ";
+          for (size_t p = 0; p < ptsx.size(); p++){
+            std::cout << ptsx[p] << " ";
+          }
+          std::cout << std::endl;
+          
+          std::cout << "The ptsy is: ";
+          for (size_t p = 0; p < ptsy.size(); p++){
+            std::cout << ptsy[p] << " ";
+          }
+          std::cout <<std::endl;
+          
+          std::cout << "The px is: " << px << std::endl;
+          std::cout << "The py is: " << py << std::endl;          
+          std::cout << "The psi is: " << psi << std::endl;          
+          std::cout << "The v is: " << v << std::endl;
+          
 
           /*
           * TODO: Calculate steering angle and throttle using MPC.
