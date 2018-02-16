@@ -104,7 +104,7 @@ int main() {
           }
           std::cout <<std::endl;
 
-          double v_conv = v*0.44704;
+          //double v_conv = v*0.44704;
 
           std::cout << "The px is: " << px << std::endl;
           std::cout << "The py is: " << py << std::endl;
@@ -144,7 +144,7 @@ int main() {
           double throttle_value = j[1]["throttle"];
 
           Eigen::VectorXd state(6);
-          state << 0 , 0 , 0 , v_conv , cte , epsi;
+          state << 0 , 0 , 0 , v , cte , epsi;
 
           auto vars = mpc.Solve(state, coeffs);
 
