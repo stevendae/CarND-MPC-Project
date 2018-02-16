@@ -1,7 +1,14 @@
 # CarND-Controls-MPC
-Self-Driving Car Engineer Nanodegree Program
+## Self-Driving Car Engineer Nanodegree Program
 
 ---
+Objective: Develop an MPC controller that adjusts the actuation parameters of steering angle and throttle to drive a simulated vehicle around a track. The input driven into the controller is a path that is coincident with the centre of the track. 
+---
+
+### The Model
+The MPC controller operates by receiving continuous inputs from the simulation. At each input step the simulation provides the x and y points of the centre path, the current x and y position, and the angular direction of the car in reference to the path along with the speed of the vehicle. 
+
+
 
 ## Dependencies
 
