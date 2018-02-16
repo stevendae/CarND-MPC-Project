@@ -2,12 +2,42 @@
 ## Self-Driving Car Engineer Nanodegree Program
 
 ---
-Objective: Develop an MPC controller that adjusts the actuation parameters of steering angle and throttle to drive a simulated vehicle around a track. The input driven into the controller is a path that is coincident with the centre of the track. 
----
+### Objective: Develop an MPC controller that adjusts the actuation parameters of steering angle and throttle to drive a simulated vehicle around a track. The input driven into the controller is a path that is coincident with the centre of the track. 
+
 
 ### The Model
-The MPC controller operates by receiving continuous inputs from the simulation. At each input step the simulation provides the x and y points of the centre path, the current x and y position, and the angular direction of the car in reference to the path along with the speed of the vehicle. 
+---
+The MPC controller receives continuous inputs from the simulation. At each input step the simulation provides, in global map coordinates, the x and y points of the centre path, the current x and y position, the angular direction of the car, and the speed of the vehicle.
 
+These coordinates are re-interpreted every time data is received so that the waypoint path is in reference from the origin of the car. These coordinates of the centre path which are given in coordinates from the car origin are run through a function that determines the coefficients of the third order polynomial that they approximate. The output of the third order polynomial at 0 is the cross track error at the current position of the car and the arc tan of the second coefficient is the difference in car heading. At this stage all the information necessary for the initial state is collected. 
+
+The components of our state are: [x-position, y-position, car heading, velocity, cross-track error, and heading angle difference]
+
+The initial state is set as: [0, 0, 0, v, cte, epsi]
+
+The initial state and the coefficients of the waypoint polynomial are inputted as arguments in the MPC solver function. The MPC solver function determines the optimal values for our actuation (steering angle, and throttle) for every time step in a specified number of time steps so that the projected trajectory from its current position to the final time step approximates the waypoint coordinates as close as possible. 
+
+The components of our actuation are: [steering angle (delta) , throttle (a)]
+
+The update equations to predict consecutive states for the specified number of time steps are the following:
+- px(t+1) = px(t) + v(t) * cos(psi(t)) * dt
+- py(t+1) = py(t) + v(t) * sin(psi(t)) * dt
+- psi(t+1) = psi(t) + v(t) / Lf * deltaPsi * dt
+- v(t+1) = v(t) + a * dt;
+
+dt is the time between consecutive states and Lf is the distance between the front axle to the center of gravity which is responsible for determining turning radius. 
+
+### Timestep Length and Elapsed Duration (N and dt)
+---
+The final timestep length was 0.1 seconds with an elapsed duration of 10 timesteps. This was the suggested timestep length and duration provided by Udacity during the project walkthrough. Changing these values was found to be extremely consequential as it would result in frenetic behaviour. Values that were tried include 15/0.05, and 8/0.25.
+
+### Polynomial Fitting and MPC Preprocessing 
+---
+The general MPC preprocessing steps are described above in the model section. In the image below a view of the projected polynomial fitted to the waypoints is shown.
+
+### Model Predictive Control with Latency
+---
+The whole purpose of applying actuation to a system is to influence the the system's future states, specifically the next possible future state whereby an acutation can be applied again to its following state. However the latency inherent in the system causes a delay of the actuation effect of 100 milliseconds which is the same length as a time step. Therefore in the update equations on line 97 of MPC.cpp the actuation values for time steps after the second time step is reset to two time steps before so that the other state values can be calculated based on the effect of the actual corresponding actuation input. 
 
 
 ## Dependencies
